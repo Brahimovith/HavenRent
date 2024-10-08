@@ -1,0 +1,31 @@
+{
+  "name": "havenrent",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/Brahimovith/HavenRent.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Brahimovith/HavenRent/issues"
+  },
+  "homepage": "https://github.com/Brahimovith/HavenRent#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
+    "nodemon": "^3.1.7",
+    "redis": "^4.7.0"
+  }
+}
