@@ -54,15 +54,7 @@ class users{
       }
 
 
-      static async getUserByEmail(email) {
-        try {
-          const user = await User.findOne({ email });
-          console.log(user);
-          return user;
-        } catch (error) {
-          console.error('Erreur lors de la récupération de l\'utilisateur :', error.message);
-        }
-      }
+    
 
 
       static async getUserByusername(username) {
