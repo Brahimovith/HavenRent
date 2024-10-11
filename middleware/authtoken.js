@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
+import redisclt from "../utils/redis.js";
 
 const secretkey = process.env.SECRETKEY || "madawatinit";
-function authenticatetoken(req, res, next){
+async function authenticatetoken(req, res, next){
     const au = req.header('Authorization');
     const token = au.split(" ")[1];
-    if(!token){
-        res.status(500).json({error: "Unothorized ..."});
+    const revoque = await redisclt.client.get(token);
+    if(!token || revoque){
+        res.status(500).json({error: "Unothorized or token revoqued..."});
     }
     else{
         jwt.verify(token, secretkey,(err, resultat)=>{
@@ -13,6 +15,7 @@ function authenticatetoken(req, res, next){
                 res.status(500).json({error: "token invalid ..."});
             }
             else{
+
                 const id = resultat.id;
                 req.auth = {
                     id: id

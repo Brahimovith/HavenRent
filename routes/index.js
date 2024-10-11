@@ -9,7 +9,7 @@ const router = Router();
 
 router.post('/api/user',users.createnewUser);
 router.post('/api/owner',owners.createnewowner);
-router.get('/api/connect', ahtentication.connect);
+router.post('/api/connect', ahtentication.connect);
 router.get('/api/disconnect',authenticatetoken, ahtentication.disconnect);
 
 export default router;
