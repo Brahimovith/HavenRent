@@ -32,7 +32,7 @@ class owners{
       try {
         const result = await newowner.save();
         console.log('Owner created :', result);
-        res.status(200).json({})
+        res.status(200).json({username: username,email:email, id: newUser._id})
        } catch (error) {
           console.error('Error when create user :', error.message);
         

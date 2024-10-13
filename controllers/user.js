@@ -32,7 +32,7 @@ class users{
       try {
         const result = await newUser.save();
         console.log('User created :', result);
-        res.status(200).json({})
+        res.status(200).json({username: username,email:email, id: newUser._id})
        } catch (error) {
           console.error('Error when create user :', error.message);
         
@@ -69,14 +69,7 @@ class users{
 
 
 
-      static async updateUser(email) {
-        try {
-          const result = await User.updateOne({ email }, { city: 'Lyon' });
-          console.log(`updated user : ${result.nModified}`);
-        } catch (error) {
-          console.error('Error :', error.message);
-        }
-      }
+    
 
       
       

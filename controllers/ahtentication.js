@@ -22,8 +22,11 @@ class ahtentication{
             const email = decod.split(":")[0];
             console.log(email);
             const password = decod.split(":")[1];
-            User.findOne({email:email})
-            .then(user =>{
+            const type = req.params;
+            if(type.id === "user")
+            {
+                User.findOne({email:email})
+               .then(user =>{
                 if(!user){
                     res.status(500).json({error: "invalid email ..."});
                 }
@@ -35,7 +38,9 @@ class ahtentication{
                             res.status(500).json({error: "password is incorrect ..."});
                         }
                         else{
-                            const token = jwt.sign({id: user._id}, secretkey, { expiresIn: '2h'});
+                            const p = req.path;
+                            let type = "user";
+                            const token = jwt.sign({id: user._id, type: type}, secretkey, { expiresIn: '2h'});
                             res.status(200).json({token});
                         }
                     })
@@ -47,6 +52,38 @@ class ahtentication{
             .catch(error=>{
                 res.status(500).json({error:"ppp"});
             })
+            }
+            else if(type.id === "owner")
+            {
+                Owner.findOne({email:email})
+                .then(owner =>{
+                  if(!owner){
+                    res.status(500).json({error: "invalid email ..."});
+                    }
+                  else{
+                    console.log(owner)
+                    bcrypt.compare(password, owner.password)
+                    .then(valid => {
+                        if(!valid){
+                            res.status(500).json({error: "password is incorrect ..."});
+                        }
+                        else{
+                            const p = req.path;
+                            let type = "owner";
+                            const token = jwt.sign({id: owner._id, type: type, email:owner.email}, secretkey, { expiresIn: '2h'});
+                            res.status(200).json({token});
+                        }
+                    })
+                    .catch(error=>{
+                        res.status(500).json({error:error});
+                    })
+            
+                }})
+                .catch(error=>{
+                    res.status(500).json({error:"ppp"});
+                })
+            }
+            
 
         }
 

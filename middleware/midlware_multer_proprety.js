@@ -1,5 +1,8 @@
 import multer from "multer";
 import path from "path";
+import mongoose from "mongoose";
+import Owner from "../models/owners_models.js";
+import fs from "fs";
 
 const Mime_type = {
     'image/jpg': 'jpg',
@@ -8,7 +11,23 @@ const Mime_type = {
 }
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
-        cb(null, 'uploads/profiles'); //dossier ou les images seront stocké
+        const idobj = new mongoose.Types.ObjectId(req.auth.id);
+        console.log(idobj);
+        Owner.findById({_id:idobj})
+        .then(resultat=>{
+          try{
+            fs.mkdirSync(`./uploads/proprety/${resultat.email}`, {recursive: true});
+            cb(null, `uploads/proprety/${resultat.email}`); //dossier ou les images seront stocké
+          }
+          catch(err){
+            console.log('erreurr');
+          }
+
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+        
     },
     filename: (req, file,cb)=>{
         const name = req.auth.type + "_" +file.originalname.split(".")[0].split(" ").join("_") + Date.now() + '.' + Mime_type[file.mimetype];
@@ -28,8 +47,8 @@ const fileFilter = (req, file, cb) => {
     }
   };
 
-const upload = multer({
+const upload1 = multer({
     storage: storage, 
     fileFilter: fileFilter}).single('image'); 
 
-export default upload;
+export default upload1;

@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import redisclt from "../utils/redis.js";
 
+
 const secretkey = process.env.SECRETKEY || "madawatinit";
 async function authenticatetoken(req, res, next){
     const au = req.header('Authorization');
@@ -17,8 +18,12 @@ async function authenticatetoken(req, res, next){
             else{
 
                 const id = resultat.id;
+                const type = resultat.type;
+                const email = resultat.email;
                 req.auth = {
-                    id: id
+                    id: id,
+                    type: type,
+                    email: email
                 };
                 next();
             }

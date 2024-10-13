@@ -8,6 +8,7 @@ const ownerSchema = new mongoose.Schema({
       age: { type: Number, required: true, min: [18, "min age is 18"] },  
       email: { type: String, required: true, unique: true },  
       city: String,
+      avatar: {type: String, required: false},
       dateInscription: { type: Date, default: Date.now } 
     });
 
