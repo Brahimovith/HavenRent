@@ -41,18 +41,30 @@ class controllerproprety{
             res.status(500).json({erreur: "error1"});
         }
         else {
+            const idd = req.auth.id;
+            const idproprety = req.params;
+            const ip = idproprety.idproprety;
+            console.log(idproprety.idproprety);
+            console.log(typeof(idproprety.idproprety));
             const i = new mongoose.Types.ObjectId(req.auth.id);
-            console.log(i);
-            Proprety.find({owner: req.auth.email}).populate('Owner').exec()
+            const ii = new mongoose.Types.ObjectId(ip);
+            console.log(ii);
+            console.log(typeof(i));
+            await Proprety.findById({_id:ii})
             .then((result)=>{
                 const p = path.resolve('uploads', 'proprety',`${req.auth.email}`,req.file.filename);
                 console.log(result);
-                result.photos = p;
-                console.log(p);
-                res.status(200).json({message: `the file is saved in ${p} `});
+                if(result.owner === i){
+                   result.photos = p;
+                   console.log(p);
+                   res.status(200).json({message: `the file is saved in ${p} `});
+                }
+                else{
+                    res.status(500).json({error: "you are not authorized"});
+                }
             })
             .catch((err)=>{
-                res.status(500).json({erreur: "error"});
+                res.status(500).json({erreur: err});
             })
         }
     }

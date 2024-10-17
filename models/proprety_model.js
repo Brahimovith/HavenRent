@@ -4,12 +4,12 @@ import Owner from "./owners_models.js";
 
    
 const propretySchema = new mongoose.Schema({
-      title: { type: String, required: true },  
+      title: { type: String, required: true, unique:true },  
       description: {type: String, required: true},    
       adress: { type: String, required: true},  
       price: {type: Number, required: true},
       photos: {type: String, required: false},
-      owner: {type: String, ref:'Owner',required:true},
+      owner: {type: mongoose.Schema.Types.ObjectId, ref:'Owner',required:true},
       dateInscription: { type: Date, default: Date.now } 
     });
 

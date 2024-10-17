@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/users_model.js";
 import Owner from "../models/owners_models.js";
+import Admin from "../models/admin_model.js";
 import bcrypt from "bcrypt";
 import redisclt from "../utils/redis.js";
 
@@ -9,18 +10,14 @@ const secretkey = process.env.SECRETKEY || "madawatinit";
 class ahtentication{
     static async connect(req, res){
         let au = req.header('Authorization');
-        console.log(au);
         let u = au.split(" ")[1];
-        console.log(u);
         let decod = Buffer.from(u, 'base64').toString('ascii');
-        console.log(decod);
         if(decod.split(":").length !== 2){
             res.status(500).json({error: "something is missing ... !"});
             
         }
         else{
             const email = decod.split(":")[0];
-            console.log(email);
             const password = decod.split(":")[1];
             const type = req.params;
             if(type.id === "user")
@@ -82,6 +79,36 @@ class ahtentication{
                 .catch(error=>{
                     res.status(500).json({error:"ppp"});
                 })
+            }
+            else if(type.id === "admin"){
+                Admin.findOne({email:email})
+                .then(admin =>{
+                  if(!admin){
+                    res.status(500).json({error: "invalid email ..."});
+                    }
+                  else{
+                    
+                    bcrypt.compare(password, admin.password)
+                    .then(valid => {
+                        if(!valid){
+                            res.status(500).json({error: "password is incorrect ..."});
+                        }
+                        else{
+                            const p = req.path;
+                            let type = "admin";
+                            const token = jwt.sign({id: admin._id, type: type, email:admin.email}, secretkey, { expiresIn: '2h'});
+                            res.status(200).json({token});
+                        }
+                    })
+                    .catch(error=>{
+                        res.status(500).json({error:error});
+                    })
+            
+                }})
+                .catch(error=>{
+                    res.status(500).json({error:"ppp"});
+                })
+
             }
             
 

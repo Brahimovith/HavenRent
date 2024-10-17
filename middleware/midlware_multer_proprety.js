@@ -12,7 +12,6 @@ const Mime_type = {
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
         const idobj = new mongoose.Types.ObjectId(req.auth.id);
-        console.log(idobj);
         Owner.findById({_id:idobj})
         .then(resultat=>{
           try{

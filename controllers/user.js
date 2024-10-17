@@ -43,47 +43,6 @@ class users{
         
       }
 
-
-      static async getUsers() {
-        try {
-          const users = await User.find();  // Récupérer tous les utilisateurs
-          console.log('Liste of users :', users);
-        } catch (error) {
-          console.error('Erreur lors de la récupération des utilisateurs :', error.message);
-        }
-      }
-
-
-    
-
-
-      static async getUserByusername(username) {
-        try {
-          const user = await User.findOne({ username });
-          return user;
-        } catch (error) {
-          console.error('Erreur lors de la récupération de l\'utilisateur :', error.message);
-        }
-      }
-
-
-
-
-    
-
-      
-      
-      static async deleteUser(email) {
-        try {
-          const result = await User.deleteOne({ email });
-          console.log(`${result.deletedCount} user deleted`);
-        } catch (error) {
-          console.error('Error :', error.message);
-        }
-      }
-
-
-
 }
 
 

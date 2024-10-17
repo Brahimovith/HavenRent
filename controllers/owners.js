@@ -32,7 +32,7 @@ class owners{
       try {
         const result = await newowner.save();
         console.log('Owner created :', result);
-        res.status(200).json({username: username,email:email, id: newUser._id})
+        res.status(200).json({username: username,email:email, id: newowner._id})
        } catch (error) {
           console.error('Error when create user :', error.message);
         
@@ -44,61 +44,7 @@ class owners{
       }
 
 
-      static async getUsers() {
-        try {
-          const users = await User.find();  // Récupérer tous les utilisateurs
-          console.log('Liste of users :', users);
-        } catch (error) {
-          console.error('Erreur lors de la récupération des utilisateurs :', error.message);
-        }
-      }
-
-
-      static async getUserByEmail(email) {
-        try {
-          const user = await User.findOne({ email });
-          console.log(user);
-          return user;
-        } catch (error) {
-          console.error('Erreur lors de la récupération de l\'utilisateur :', error.message);
-        }
-      }
-
-
-      static async getUserByusername(username) {
-        try {
-          const user = await User.findOne({ username });
-          return user;
-        } catch (error) {
-          console.error('Erreur lors de la récupération de l\'utilisateur :', error.message);
-        }
-      }
-
-
-
-
-      static async updateUser(email) {
-        try {
-          const result = await User.updateOne({ email }, { city: 'Lyon' });
-          console.log(`updated user : ${result.nModified}`);
-        } catch (error) {
-          console.error('Error :', error.message);
-        }
-      }
-
-      
-      
-      static async deleteUser(email) {
-        try {
-          const result = await User.deleteOne({ email });
-          console.log(`${result.deletedCount} user deleted`);
-        } catch (error) {
-          console.error('Error :', error.message);
-        }
-      }
-
-
-
+     
 }
 
 
