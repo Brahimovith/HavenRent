@@ -5,6 +5,7 @@ import User from "../models/users_model.js";
 class users{  
     static async createnewUser(req, res) {
         const {username, password, name, age, email, city} = req.body;
+        
         const user1 = await User.findOne({ email });
         const user2 = await User.findOne({username});
         console.log(user1);
@@ -23,6 +24,7 @@ class users{
 
         const newUser = new User({
             name: name ,
+            username: username,
             password:newpass,
             age: age,
             email: email ,

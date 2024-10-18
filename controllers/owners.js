@@ -24,6 +24,7 @@ class owners{
         const newowner = new Owner({
             name: name ,
             password:newpass,
+            username:username,
             age: age,
             email: email ,
             city: city

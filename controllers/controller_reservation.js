@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Proprety from "../models/proprety_model.js";
 import Reservation from "../models/reservation_model.js";
 import Stripe from "stripe";
-const stripe = Stripe('VOTRE_CLE_SECRETE_STRIPE');
+const stripe = Stripe('sk_test_51QBIkoKOuzMm650HkbI4XKWbSZbOTxi2YTVpnwSSsihVsoX6xijfrvtzJ05GDzIDCxnWFYd3qBYTNe8AFgkBPEdg00TcvhQiBq');
 import emailQueue from "../worker.js";
 
 class reservation{

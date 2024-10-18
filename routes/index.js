@@ -15,7 +15,7 @@ const router = Router();
 router.post('/api/admin',admin.createnewadmin);
 router.post('/api/user',users.createnewUser);
 router.post('/api/owner',owners.createnewowner);
-router.post('/api/:id/connect', ahtentication.connect);
+router.post('/api/:type/connect', ahtentication.connect);
 router.get('/api/disconnect',authenticatetoken, ahtentication.disconnect);
 router.get('/api/admin/getusers',authenticatetoken,admin.getUsers);
 router.post('/api/admin/userbyusername',authenticatetoken,admin.getUserByusername);

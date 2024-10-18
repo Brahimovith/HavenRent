@@ -28,6 +28,7 @@ class admin{
       const newadmin = new Admin({
           name: name ,
           password:newpass,
+          username:username,
           age: age,
           email: email ,
           city: city

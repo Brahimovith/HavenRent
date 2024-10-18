@@ -20,7 +20,7 @@ class ahtentication{
             const email = decod.split(":")[0];
             const password = decod.split(":")[1];
             const type = req.params;
-            if(type.id === "user")
+            if(type.type === "user")
             {
                 User.findOne({email:email})
                .then(user =>{
@@ -50,7 +50,7 @@ class ahtentication{
                 res.status(500).json({error:"ppp"});
             })
             }
-            else if(type.id === "owner")
+            else if(type.type === "owner")
             {
                 Owner.findOne({email:email})
                 .then(owner =>{
@@ -80,7 +80,7 @@ class ahtentication{
                     res.status(500).json({error:"ppp"});
                 })
             }
-            else if(type.id === "admin"){
+            else if(type.type === "admin"){
                 Admin.findOne({email:email})
                 .then(admin =>{
                   if(!admin){
